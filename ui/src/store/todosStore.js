@@ -39,7 +39,7 @@ export const createTodosStore = () => {
       axios
         .post("http://localhost:8000/todos", item)
         .then(response => {
-          this.todos.push(response.data);
+          this.todos.unshift(response.data);
         })
         .catch(error => {
           console.log(
@@ -50,7 +50,7 @@ export const createTodosStore = () => {
     },
 
     setTodos(todos) {
-      this.todos.replace(todos);
+      this.todos.replace(todos.reverse());
     }
   };
 };

@@ -12,7 +12,7 @@ function TodoContainer() {
   return (
     <EuiPage>
       <EuiPageBody>
-        <EuiPageContent>
+        <EuiPageContent style={{ width: "1600px" }} horizontalPosition="center">
           <CreateTodo />
           <EuiSpacer size="xl" />
           <ViewTodos />
