@@ -1,15 +1,18 @@
-import React from 'react';
-import './App.css';
-import axios from 'axios';
-import SampleContainer from './components/sample/SampleContainer';
-import {SamplesStoreProvider} from "./store/samplesStore";
-import {EuiPageContent} from "@elastic/eui";
+import React from "react";
+// import SampleContainer from './components/sample/SampleContainer';
+// import {SamplesStoreProvider} from "./store/samplesStore";
+import TodoContainer from "./components/todo/TodoContainer";
+import { TodosStoreProvider } from "./store/todosStore";
+import "./App.css";
 
 function App() {
   return (
-    <SamplesStoreProvider>
-      <SampleContainer />
-    </SamplesStoreProvider>
+    // <SamplesStoreProvider>
+    //   <SampleContainer />
+    // </SamplesStoreProvider>
+    <TodosStoreProvider>
+      <TodoContainer />
+    </TodosStoreProvider>
   );
 }
 
