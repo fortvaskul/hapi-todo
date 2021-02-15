@@ -25,10 +25,10 @@ export const createTodosStore = () => {
 
     getTodos() {
       axios
-        .get("http://localhost:8000/todos")
+        .get("api/todos")
         .then(res => {
           console.log(res.data);
-          this.setTodos(res.data);
+          this.setTodos(res.data.reverse());
         })
         .catch(error => {
           console.log("Error" + error);
@@ -37,7 +37,7 @@ export const createTodosStore = () => {
 
     addTodo(item) {
       axios
-        .post("http://localhost:8000/todos", item)
+        .post("api/todos", item)
         .then(response => {
           this.todos.unshift(response.data);
         })
@@ -49,8 +49,21 @@ export const createTodosStore = () => {
         });
     },
 
+    deleteTodo(id) {
+      axios
+        .delete("api/todos/" + id)
+        .then(() => {
+          this.setTodos(this.todos.filter(todo => todo.id !== id));
+        })
+        .catch(error => {
+          console.log(
+            "An error occurred while trying to delete the todo:" + error
+          );
+        });
+    },
+
     setTodos(todos) {
-      this.todos.replace(todos.reverse());
+      this.todos.replace(todos);
     }
   };
 };

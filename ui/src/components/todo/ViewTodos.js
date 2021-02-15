@@ -12,7 +12,7 @@ import { Observer } from "mobx-react-lite";
 import { useTodosStore } from "../../store/todosStore";
 
 function ViewTodos() {
-  const { todos } = useTodosStore();
+  const { todos, deleteTodo } = useTodosStore();
 
   return (
     <Observer>
@@ -39,7 +39,12 @@ function ViewTodos() {
                       <EuiButton fill>Edit</EuiButton>
                     </EuiFlexItem>
                     <EuiFlexItem grow={false}>
-                      <EuiButtonEmpty color="danger">Delete</EuiButtonEmpty>
+                      <EuiButtonEmpty
+                        color="danger"
+                        onClick={() => deleteTodo(todo.id)}
+                      >
+                        Delete
+                      </EuiButtonEmpty>
                     </EuiFlexItem>
                   </EuiFlexGroup>
                 }
