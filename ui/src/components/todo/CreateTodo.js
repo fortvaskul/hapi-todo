@@ -32,6 +32,8 @@ function CreateTodo() {
               fill
               onClick={() => {
                 addTodo({ content: { task, done } });
+                setTask("");
+                setDone(false);
               }}
             >
               Save

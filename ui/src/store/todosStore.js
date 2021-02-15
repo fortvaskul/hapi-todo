@@ -23,6 +23,18 @@ export const createTodosStore = () => {
   return {
     todos: [],
 
+    getTodos() {
+      axios
+        .get("http://localhost:8000/todos")
+        .then(res => {
+          console.log(res.data);
+          this.setTodos(res.data);
+        })
+        .catch(error => {
+          console.log("Error" + error);
+        });
+    },
+
     addTodo(item) {
       axios
         .post("http://localhost:8000/todos", item)
