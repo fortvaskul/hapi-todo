@@ -30,38 +30,38 @@ class ESClient {
     return this;
   }
 
-  async queryAndScroll(body) {
-    const query = { body, index: this.indexName, type: this.type, scroll: '30s' };
-    let { hits, _scroll_id: scroll_id } = await client.search(query);
-    var allRecords = hits && hits.hits.length ? hits.hits : [];
-
-    while (scroll_id) {
-      const resp = await client.scroll({
-        scroll_id,
-        scroll: '30s'
-      });
-      hits = resp.hits;
-      scroll_id = resp._scroll_id;
-
-      if (!(hits && hits.hits.length))
-        return allRecords.map(r => r._source);
-
-      allRecords.push(...hits.hits);
-    }
-    return allRecords.map(r => r._source);
-  }
+  // async queryAndScroll(body) {
+  //   const query = { body, index: this.indexName, type: this.type, scroll: '30s' };
+  //   let { hits, _scroll_id: scroll_id } = await client.search(query);
+  //   var allRecords = hits && hits.hits.length ? hits.hits : [];
+  //
+  //   while (scroll_id) {
+  //     const resp = await client.scroll({
+  //       scroll_id,
+  //       scroll: '30s'
+  //     });
+  //     hits = resp.hits;
+  //     scroll_id = resp._scroll_id;
+  //
+  //     if (!(hits && hits.hits.length))
+  //       return allRecords.map(r => r._source);
+  //
+  //     allRecords.push(...hits.hits);
+  //   }
+  //   return allRecords.map(r => r._source);
+  // }
 
   index(doc) {
     return client.index({ type: this.type, index: this.indexName, ...doc });
   }
 
-  update(part, id) {
-    return client.update({ type: this.type, index: this.indexName, id, body: { doc: part }, _source: true });
-  }
+  // update(part, id) {
+  //   return client.update({ type: this.type, index: this.indexName, id, body: { doc: part }, _source: true });
+  // }
 
-  bulk(data) {
-    return client.bulk(data);
-  }
+  // bulk(data) {
+  //   return client.bulk(data);
+  // }
 
   delete(id) {
     return client.delete({
