@@ -9,7 +9,7 @@ const server = Hapi.server(config.server);
 const sampleRoute = require('./samples/routes/sample-routes');
 const todoRoute = require('./todos/routes/todos-routes');
 
-sampleRoute(server);
+// sampleRoute(server);
 todoRoute(server);
 
 const init = async () => {

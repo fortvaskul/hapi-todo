@@ -3,7 +3,7 @@ const todoService = require('../service/todo-service');
 
 module.exports = function (server) {
   server.route({
-    path: '/todos',
+    path: '/api/todos',
     method: 'GET',
     handler(req, h) {
       return todoService.list();
@@ -19,7 +19,7 @@ module.exports = function (server) {
   });
 
   server.route({
-    path: '/todos',
+    path: '/api/todos',
     method: 'POST',
     handler(req, h) {
       return todoService.index(req.payload);
@@ -41,7 +41,7 @@ module.exports = function (server) {
   });
 
   server.route({
-    path: '/todos/{id}',
+    path: '/api/todos/{id}',
     method: 'PUT',
     handler(req, h) {
       const { id, ...todo } = req.payload;
@@ -66,7 +66,7 @@ module.exports = function (server) {
   });
 
   server.route({
-    path: '/todos/{id}',
+    path: '/api/todos/{id}',
     method: 'DELETE',
     handler(req, h) {
       return todoService.del(req.params.id);
