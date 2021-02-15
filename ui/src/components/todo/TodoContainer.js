@@ -24,9 +24,9 @@ function TodoContainer() {
     <EuiPage>
       <EuiPageBody>
         <EuiPageContent>
-          <ViewTodos />
-          <EuiSpacer size="xl" />
           <CreateTodo />
+          <EuiSpacer size="xl" />
+          <ViewTodos />
         </EuiPageContent>
       </EuiPageBody>
     </EuiPage>

@@ -1,42 +1,58 @@
 import React, { useState } from "react";
-import ReactJson from "react-json-view";
-import { EuiButton, EuiSpacer } from "@elastic/eui";
+import {
+  EuiButton,
+  EuiCard,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiFieldText,
+  EuiCheckbox,
+  EuiSpacer
+} from "@elastic/eui";
+import { htmlIdGenerator } from "@elastic/eui/lib/services";
 import { useTodosStore } from "../../store/todosStore";
 
 function CreateTodo() {
-  const [json, setJson] = useState({
-    content: {}
-  });
-
-  const onAdd = e => {
-    setJson(e.updated_src);
-  };
-
-  const onEdit = e => {
-    setJson(e.updated_src);
-  };
-
-  const onDelete = e => {
-    setJson(e.updated_src);
-  };
+  const [task, setTask] = useState("");
+  const [done, setDone] = useState(false);
 
   const store = useTodosStore();
   const { addTodo } = store;
 
   return (
-    <React.Fragment>
-      <p>Add a Task</p>
+    <EuiCard
+      textAlign="left"
+      title="Add a Task"
+      description=""
+      footer={
+        <EuiFlexGroup>
+          <EuiFlexItem grow={false}>
+            <EuiButton
+              color="secondary"
+              size="s"
+              fill
+              onClick={() => {
+                addTodo({ content: { task, done } });
+              }}
+            >
+              Save
+            </EuiButton>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      }
+    >
+      <EuiFieldText
+        placeholder="Name"
+        value={task}
+        onChange={e => setTask(e.target.value)}
+      />
       <EuiSpacer size="s" />
-      <ReactJson src={json} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
-      <EuiSpacer size="s" />
-      <EuiButton
-        onClick={() => {
-          addTodo(json);
-        }}
-      >
-        Save
-      </EuiButton>
-    </React.Fragment>
+      <EuiCheckbox
+        id={htmlIdGenerator()()}
+        label="Done"
+        checked={done}
+        onChange={e => setDone(e.target.checked)}
+      />
+    </EuiCard>
   );
 }
 
