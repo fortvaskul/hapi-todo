@@ -29,27 +29,6 @@ const EditTodo = ({ closeModal, editTodo, item }) => {
     closeModal();
   };
 
-  const formSample = (
-    <EuiForm>
-      <EuiFormRow>
-        <EuiFieldText
-          name="popfirst"
-          placeholder="Name"
-          value={task}
-          onChange={e => setTask(e.target.value)}
-        />
-      </EuiFormRow>
-      <EuiFormRow>
-        <EuiCheckbox
-          id={htmlIdGenerator()()}
-          label="Done"
-          checked={done}
-          onChange={e => setDone(e.target.checked)}
-        />
-      </EuiFormRow>
-    </EuiForm>
-  );
-
   return (
     <EuiOverlayMask>
       <EuiModal onClose={closeModal} initialFocus="[name=popfirst]">
@@ -57,7 +36,26 @@ const EditTodo = ({ closeModal, editTodo, item }) => {
           <EuiModalHeaderTitle>Edit the Task</EuiModalHeaderTitle>
         </EuiModalHeader>
 
-        <EuiModalBody>{formSample}</EuiModalBody>
+        <EuiModalBody>
+          <EuiForm>
+            <EuiFormRow>
+              <EuiFieldText
+                name="popfirst"
+                placeholder="Name"
+                value={task}
+                onChange={e => setTask(e.target.value)}
+              />
+            </EuiFormRow>
+            <EuiFormRow>
+              <EuiCheckbox
+                id={htmlIdGenerator()()}
+                label="Done"
+                checked={done}
+                onChange={e => setDone(e.target.checked)}
+              />
+            </EuiFormRow>
+          </EuiForm>
+        </EuiModalBody>
 
         <EuiModalFooter>
           <EuiButtonEmpty onClick={closeModal}>Cancel</EuiButtonEmpty>
