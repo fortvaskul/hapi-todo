@@ -6,12 +6,6 @@ const HapiSwagger = require('hapi-swagger');
 const Pack = require('./package');
 const server = Hapi.server(config.server);
 
-const sampleRoute = require('./samples/routes/sample-routes');
-const todoRoute = require('./todos/routes/todos-routes');
-
-// sampleRoute(server);
-todoRoute(server);
-
 const init = async () => {
 
   const swaggerOptions = {
@@ -29,6 +23,12 @@ const init = async () => {
       options: swaggerOptions
     }
   ]);
+
+  await server.register(require('./api.js'), {
+      routes: {
+        prefix: '/api'
+      }
+    });
 
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
