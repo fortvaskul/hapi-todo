@@ -62,6 +62,22 @@ export const createTodosStore = () => {
         });
     },
 
+    editTodo(id, item) {
+      axios
+        .put("api/todos/" + id, item)
+        .then(response => {
+          this.setTodos(
+            this.todos.map(todo => (todo.id === id ? response.data : todo))
+          );
+        })
+        .catch(error => {
+          console.log(
+            "An error occurred while trying to send a new JSON to the server:" +
+              error
+          );
+        });
+    },
+
     setTodos(todos) {
       this.todos.replace(todos);
     }

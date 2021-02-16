@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   EuiButton,
   EuiCard,
@@ -10,14 +10,27 @@ import {
 } from "@elastic/eui";
 import { Observer } from "mobx-react-lite";
 import { useTodosStore } from "../../store/todosStore";
+import EditTodo from "./EditTodo";
 
 function ViewTodos() {
-  const { todos, deleteTodo } = useTodosStore();
+  const [editableTodo, setEditableTodo] = useState(null);
+
+  const closeModal = () => setEditableTodo(null);
+  const showModal = item => setEditableTodo(item);
+
+  const { todos, deleteTodo, editTodo } = useTodosStore();
 
   return (
     <Observer>
       {() => (
         <EuiFlexGrid>
+          {editableTodo ? (
+            <EditTodo
+              closeModal={closeModal}
+              editTodo={editTodo}
+              item={editableTodo}
+            />
+          ) : null}
           {todos.map((todo, i) => (
             <EuiFlexItem key={i} style={{ width: "500px" }}>
               <EuiCard
@@ -36,7 +49,9 @@ function ViewTodos() {
                 footer={
                   <EuiFlexGroup justifyContent="flexStart">
                     <EuiFlexItem grow={false}>
-                      <EuiButton fill>Edit</EuiButton>
+                      <EuiButton fill onClick={() => showModal(todo)}>
+                        Edit
+                      </EuiButton>
                     </EuiFlexItem>
                     <EuiFlexItem grow={false}>
                       <EuiButtonEmpty
